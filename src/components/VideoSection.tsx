@@ -41,6 +41,13 @@ export const VideoSection: React.FC<VideoSectionProps> = ({
         if (isInView) setShouldPlay(true);
     }, [isInView, priority]);
 
+    // Check ready state on mount (fixes cache/refresh issues)
+    useEffect(() => {
+        if (videoRef.current && videoRef.current.readyState >= 3) {
+            setIsVideoLoaded(true);
+        }
+    }, []);
+
     useEffect(() => {
         if (!videoRef.current) return;
 
@@ -50,6 +57,8 @@ export const VideoSection: React.FC<VideoSectionProps> = ({
             if (playPromise !== undefined) {
                 playPromise.catch((error) => {
                     console.warn("Video autoplay prevented:", error);
+                    // If autoplay fails, we can try muting and playing again or showing a play button
+                    // But for background video, it's already muted.
                 });
             }
         } else {
@@ -73,11 +82,13 @@ export const VideoSection: React.FC<VideoSectionProps> = ({
             >
                 <video
                     ref={videoRef}
+                    autoPlay={priority}
                     muted
                     loop
                     playsInline
                     preload={priority ? "auto" : "none"} // Critical for performance
                     onCanPlay={() => setIsVideoLoaded(true)} // Faster than onLoadedData
+                    onLoadedData={() => setIsVideoLoaded(true)} // Backup handler
                     className={cn(
                         "w-full h-full object-cover transition-opacity duration-1000 ease-out",
                         isVideoLoaded ? "opacity-100" : "opacity-0"

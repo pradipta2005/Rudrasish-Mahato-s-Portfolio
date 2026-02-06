@@ -160,6 +160,15 @@ function App() {
 
   return (
     <BrowserRouter>
+      {/* Preload Hero Video to ensure it's ready when Preloader finishes */}
+      <video
+        src={VIDEOS.hero}
+        preload="auto"
+        muted
+        className="absolute w-0 h-0 opacity-0 pointer-events-none"
+        aria-hidden="true"
+      />
+
       <CustomCursor />
       <AnimatePresence mode='wait'>
         {loading && <LoadingScreen />}
@@ -273,11 +282,11 @@ function Home() {
               </motion.p>
             </div>
 
-            <div className="mb-8 relative">
+            <div className="mb-8 relative w-full flex flex-col items-center">
               <TextReveal
                 mode='char'
                 stagger={0.02}
-                className="text-6xl md:text-8xl lg:text-[10rem] font-display font-medium leading-none tracking-tight text-white drop-shadow-2xl mix-blend-overlay"
+                className="text-[13vw] md:text-8xl lg:text-[10rem] font-display font-medium leading-none tracking-tight text-white drop-shadow-2xl mix-blend-overlay whitespace-nowrap"
               >
                 RUDRASISH
               </TextReveal>
@@ -285,7 +294,7 @@ function Home() {
                 mode='char'
                 stagger={0.02}
                 delay={0.2}
-                className="text-6xl md:text-8xl lg:text-[10rem] font-display font-medium leading-[0.8] tracking-tight text-luxury-gold/90 drop-shadow-2xl block"
+                className="text-[13vw] md:text-8xl lg:text-[10rem] font-display font-medium leading-[0.8] tracking-tight text-luxury-gold/90 drop-shadow-2xl block whitespace-nowrap"
               >
                 MAHATO
               </TextReveal>
@@ -471,7 +480,7 @@ function Home() {
       <VideoSection videoSrc={VIDEOS.contact} id="contact" overlayOpacity={0.65}>
         <div className="max-w-[1000px] mx-auto px-6 text-center">
           <motion.div initial={{ scale: 0.9, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} transition={{ duration: 0.8 }} className="cursor-none">
-            <h2 className="text-7xl md:text-9xl font-display mb-12 drop-shadow-2xl opacity-90">
+            <h2 className="text-[12vw] md:text-9xl font-display mb-12 drop-shadow-2xl opacity-90">
               <TextReveal className="inline-block">Inquiries</TextReveal>
             </h2>
             <Magnetic>
