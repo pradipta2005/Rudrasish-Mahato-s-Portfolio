@@ -90,6 +90,3 @@ Contact details and social links are available on the portfolio website.
 ## ⭐ Support
 
 If you like this project, feel free to give it a ⭐ on GitHub.
-
-```
-
